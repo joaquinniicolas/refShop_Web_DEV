@@ -1,0 +1,32 @@
+.restaurant {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  
+
+}
+
+.canvas {
+  border: 1px solid #000;
+  height:450px;
+  flex: 1;
+  width: 100%;
+  background-color: red;
+  position: relative;
+}
+
+
+.button-menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width:100%;
+}
+  .button-menu button {
+    margin: 5px;
+    flex: 1;
+    font-size: 10px;
+    text-align:center;
+  }
+
+

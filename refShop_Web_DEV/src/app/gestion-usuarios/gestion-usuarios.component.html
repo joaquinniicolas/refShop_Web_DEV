@@ -1,0 +1,404 @@
+<mat-tab-group>
+  <mat-tab label="Usuarios">
+    <div class="mat-elevation-z8">
+      <div class="page-header">
+        <h1>Gestión de Usuarios</h1>
+        <p>Esta pantalla permite administrar los usuarios del sistema</p>
+        <div class="help-title">Ayuda:</div>
+        <div class="description">
+          <mat-icon>check_circle</mat-icon>
+          <small>Crear usuarios</small>
+        </div>
+        <div class="description">
+          <mat-icon>edit</mat-icon>
+          <small>Editar usuarios</small>
+        </div>
+        <div class="description">
+          <mat-icon>delete</mat-icon>
+          <small>Borrar usuarios</small>
+        </div>
+        <div class="description">
+          <mat-icon>lock</mat-icon>
+          <small>Cambiar permisos de los usuarios, etc...</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-elevation-z8 content-container">
+      <h4>Cantidad de Usuarios: {{ usuarios.length || 0 }}</h4>
+
+      <div class="button-section-user">
+        <button mat-button (click)="addUsuario()"><mat-icon>add</mat-icon>Crear usuario</button>
+        <button mat-button (click)="editUsuario()" [disabled]="selectedUserId === null"><mat-icon>edit</mat-icon>Editar
+          usuario</button>
+        <button mat-button [disabled]="selectedUserId === null"><mat-icon>delete</mat-icon>Eliminar usuario</button>
+      </div>
+      <hr />
+
+      <div class="user-view-select">
+        <mat-slide-toggle [(ngModel)]="mostrarGrilla" color="primary">Mostrar en formato de grilla</mat-slide-toggle>
+      </div>
+
+      <div class="filter-container">
+        <mat-form-field appearance="outline">
+          <mat-label>Buscar</mat-label>
+          <input matInput [(ngModel)]="filtro" (input)="filtrarUsuarios()" placeholder="Ingrese término de búsqueda">
+          <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="filtro" (click)="limpiarFiltro()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="usuarios && usuarios.length > 0"
+        [ngClass]="{'user-list': !mostrarGrilla, 'user-list-full-width': mostrarGrilla}">
+        <div *ngIf="mostrarGrilla; else cardView">
+          <!-- Tabla de usuarios -->
+          <table mat-table [dataSource]="usuarios" class="mat-elevation-z2 custom-table">
+            <!-- Definir las columnas de la tabla -->
+            <ng-container [matColumnDef]="columna" *ngFor="let columna of columnas">
+              <th mat-header-cell *matHeaderCellDef>{{ getColumnLabel(columna) }}</th>
+              <td mat-cell *matCellDef="let user">{{ user[columna] }}</td>
+            </ng-container>
+
+            <!-- Mostrar las filas de la tabla -->
+            <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnas;" [ngClass]="{ 'selected': selectedUserId === row.id }"
+              (click)="selectUser(row.id)"></tr>
+          </table>
+        </div>
+
+        <ng-template #cardView>
+          <!-- Vista de tarjetas de usuarios -->
+          <div *ngFor="let usuario of filtro ? usuariosFiltrados : usuarios" class="card-container">
+
+            <mat-card class="card-user" [ngClass]="{ 'selected': selectedUserId === usuario.id }"
+              (click)="selectUser(usuario.id)">
+              <mat-card-header>
+                <div class="avatar-container">
+                  <div mat-card-avatar class="avatar-img"
+                    [style.backgroundImage]="usuario.photoPath && usuario.photoPath !== 'Sin definir' ? 'url(http://localhost:5158/' + usuario.photoPath + ')' : 'url(assets/user-icon.png)'">
+                  </div>
+                </div>
+                <mat-card-title class="name">{{usuario.firstName}} {{usuario.lastName}}</mat-card-title>
+                <mat-card-subtitle class="role">Rol: {{usuario.userRoleId}}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <hr />
+                <div class="info-container">
+                  <ng-container *ngIf="usuario.phone">
+                    <div class="info-item">
+                      <mat-icon class="icon phone-icon">phone</mat-icon>
+                      <span class="label">Teléfono:</span>
+                      {{usuario.phone}}
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="usuario.email">
+                    <div class="info-item">
+                      <mat-icon class="icon email-icon">email</mat-icon>
+                      <span class="label">Email:</span>
+                      {{usuario.email}}
+                    </div>
+                  </ng-container>
+                  <div class="info-item">
+                    <mat-icon class="icon role-icon">assignment_ind</mat-icon>
+                    <span class="label">Rol:</span>
+                    {{getRoleName(usuario.userRoleId)}}
+                  </div>
+                  <ng-container *ngIf="usuario.updatedAt">
+                    <div class="info-item">
+                      <mat-icon class="icon time-icon">access_time</mat-icon>
+                      <span class="label">Última modificación:</span>
+                      {{usuario.updatedAt}}
+                    </div>
+                  </ng-container>
+                </div>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-icon-button class="info-button" color="primary" aria-label="Más información">
+                  <mat-icon>info</mat-icon>
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </ng-template>
+
+      </div>
+
+      <div *ngIf="usuarios && usuarios.length === 0" class="no-users-message">
+        No hay usuarios disponibles.
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Roles">
+    <div class="mat-elevation-z8">
+      <div class="page-title">
+
+
+        <div class="title-wrapper">
+          <div class="icon-wrapper">
+            <mat-icon class="icon">group_work</mat-icon>
+          </div>
+          <h1 class="main-title">Gestión de Roles</h1>
+
+        </div>
+        <div class="subtitle-wrapper">
+          <h2 class="subtitle">Administra los roles de usuario</h2>
+        </div>
+        <div class="description-wrapper">
+          <p class="description">Aquí podrás asignar, crear y editar los roles de usuario en tu aplicación. Los roles
+            permiten definir los niveles de acceso y permisos para los usuarios, brindando mayor seguridad y control en
+            la gestión de la plataforma.</p>
+
+        </div>
+      </div>
+
+      <div class="mat-elevation-z8 body-section-main">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+              <div class="sidenav">
+                <ul class="sidenav-menu">
+                  <li class="menu-item" (click)="showRoles()">
+                    <mat-icon>assignment_ind</mat-icon> Roles
+                  </li>
+                  <li class="menu-item" (click)="showPermisos()">
+                    <mat-icon>security</mat-icon> Permisos
+                  </li>
+                  <li class="menu-item">
+                    <mat-icon>settings</mat-icon> Opción 3
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+
+            <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9">
+              <!-- Contenido principal -->
+              <div class="roles-section" *ngIf="showingRoles">
+                <div class="buttons-wrapper">
+                  <h3 class="roles-title">Roles de Usuarios</h3>
+                  <hr />
+                  <button mat-raised-button class="create-button" color="primary">
+                    <mat-icon class="button-icon">add</mat-icon>
+                    Crear
+                  </button>
+                  <button mat-raised-button class="edit-button" color="accent">
+                    <mat-icon class="button-icon">edit</mat-icon>
+                    Editar
+                  </button>
+                  <button mat-raised-button class="delete-button" color="warn">
+                    <mat-icon class="button-icon">delete</mat-icon>
+                    Borrar
+                  </button>
+                </div>
+                <hr />
+
+                <div class="roles-container">
+                  <ul class="roles-list">
+                    <li *ngFor="let role of roles" class="role-item" [class.selected]="selectedRole === role"
+                      (click)="selectRole(role)">
+                      <div class="card">
+                        <div>
+                          <h5 class="card-title">
+                            <mat-icon class="role-icon-small">supervisor_account</mat-icon>
+                            {{ role.name }}
+                          </h5>
+                        </div>
+                        <div class="card-body">
+                          <div class="card-text-container">
+                            <p class="card-text">{{ role.description }}</p>
+                            <p><small>Permisos asignados a este rol: {{ countPermissions(role.id) }}</small></p>
+                            <p><small>Usuarios asignados a este rol: {{ countUsers(role.id) }} </small></p>
+                            <p><small>Estado: </small></p>
+                          </div>
+                          <div class="card-footer">
+                            <button class="card-button" (click)="$event.stopPropagation()">Ver permisos</button>
+                            <button class="card-button" (click)="$event.stopPropagation()">Ver usuarios</button>
+                            <button class="card-button" (click)="$event.stopPropagation()">Agregar usuario</button>
+
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+
+
+              <div class="roles-section" *ngIf="showingPermisos">
+                <div class="buttons-wrapper">
+                  <h3 class="roles-title">Permisos de usuarios</h3>
+                  <hr />
+                  <button mat-raised-button class="create-button" color="primary">
+                    <mat-icon class="button-icon">add</mat-icon>
+                    Crear
+                  </button>
+                  <button mat-raised-button class="edit-button" color="accent">
+                    <mat-icon class="button-icon">edit</mat-icon>
+                    Editar
+                  </button>
+                  <button mat-raised-button class="delete-button" color="warn">
+                    <mat-icon class="button-icon">delete</mat-icon>
+                    Borrar
+                  </button>
+                </div>
+
+                <hr />
+                <mat-form-field>
+                  <mat-label>Filtrar por</mat-label>
+                  <mat-select [(ngModel)]="selectedFilterOption" (selectionChange)="filterPermissions($event.value)">
+                    <mat-option>-- Seleccione una opción --</mat-option>
+                    <mat-option value="nada">Nada</mat-option>
+                    <mat-option value="roles">Roles</mat-option>
+                    <mat-option value="permisos">Permisos</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="selectedFilterOption === 'roles'" style="padding-left: 10px;">
+                  <mat-label>Filtrar por Rol</mat-label>
+                  <mat-select [(ngModel)]="stringSelectedRole" (selectionChange)="filterPermissions(selectedFilterOption)">
+                    <mat-option *ngFor="let role of roles" [value]="role.name">{{ role.name }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <!-- // SECCION DE PERMISOS -->
+                <div class="roles-container">
+                  <ul class="roles-list">
+                    <li *ngFor="let permission of filteredPermissions" class="role-item"
+                      [class.selected]="selectedRole === permission" >
+                      <div class="card">
+                        <div>
+                          <h5 class="card-title">
+                            <mat-icon class="role-icon-small">supervisor_account</mat-icon>
+                            {{ permission.name }}
+                          </h5>
+                        </div>
+                        <div class="card-body">
+                          <div class="card-text-container">
+                            <p class="card-text">{{ permission.description }}</p>
+                          </div>
+                          <div class="card-footer">
+                            <button class="card-button" (click)="$event.stopPropagation()">Ver usuarios</button>
+                            <button class="card-button" (click)="$event.stopPropagation()">Ver roles </button>
+
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li *ngIf="filteredPermissions.length === 0" class="no-permissions">
+      No se encontraron permisos disponibles.
+    </li>
+                  </ul>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <!-- Contenido de la pestaña "Roles" -->
+    <!-- Agrega aquí el contenido relacionado con la gestión de roles -->
+  </mat-tab>
+
+  <mat-tab label="Horarios y turnos">
+    PROXIMA MEJORA: AGREGAR FUNCION PARA MOSTRAR EL horario de ingreso, turnos,etc... DE USUARIOS, ETC
+    <!-- Contenido de la pestaña "Roles" -->
+    <!-- Agrega aquí el contenido relacionado con la gestión de roles -->
+  </mat-tab>
+
+
+  <mat-tab label="Organigrama">
+
+    PROXIMA MEJORA: AGREGAR FUNCION PARA MOSTRAR EL ORGANIGRAMA
+    <!-- Contenido de la pestaña "Roles" -->
+    <!-- Agrega aquí el contenido relacionado con la gestión de roles -->
+  </mat-tab>
+  <mat-tab label="Historial">
+    PROXIMA MEJORA: AGREGAR FUNCION PARA MOSTRAR EL HISTORIAL DE USUARIOS, ETC
+    <!-- Contenido de la pestaña "Roles" -->
+    <!-- Agrega aquí el contenido relacionado con la gestión de roles -->
+  </mat-tab>
+  
+</mat-tab-group>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <mat-expansion-panel class="panel-container">
+  <mat-expansion-panel-header class="panel-title">
+    <mat-panel-title>
+      Gestión de Roles
+    </mat-panel-title>
+    <mat-panel-description>
+      Administra los roles de usuario
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  
+  <div class="buttons-wrapper">
+    <button mat-raised-button class="create-button" color="primary">
+      <mat-icon class="button-icon">add</mat-icon>
+      Crear
+    </button>
+    <button mat-raised-button class="edit-button" color="accent">
+      <mat-icon class="button-icon">edit</mat-icon>
+      Editar
+    </button>
+    <button mat-raised-button class="delete-button" color="warn">
+      <mat-icon class="button-icon">delete</mat-icon>
+      Borrar
+    </button>
+  </div>
+  <hr />
+  <div class="role-container">
+    <h3 class="roles-title">Roles de Usuarios</h3>
+    <hr>
+    <ul class="roles-list">
+      <li *ngFor="let role of roles" class="role-item" [class.selected]="selectedRole === role" (click)="selectRole(role)">
+        <mat-icon class="role-icon">supervisor_account</mat-icon>
+        <div class="role-details">
+          <span class="role-name">{{ role.name }}</span>
+          <p class="role-description">{{ role.description }}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+ 
+</mat-expansion-panel> -->
+
+
+<!-- <div class="permission-container">
+            <h3 class="roles-title">Permisos Creados</h3>
+            <hr />
+            <ul class="permission-list">
+              <li *ngFor="let permission of filteredPermissions" class="created-role-item">
+                <div class="created-permission-details">
+                  <mat-icon class="created-permission-icon">verified_user</mat-icon>
+                  <span class="created-permission-name">{{ permission.name }}</span>
+                  <p class="created-permission-description">{{ permission.description }}</p>
+                </div>
+              </li>
+              <ng-container *ngIf="filteredPermissions.length === 0 && selectedRole !== null">
+                <li class="no-permissions-message">
+                  <p>El Rol seleccionado no tiene ningún permiso asignado.</p>
+                  <button mat-raised-button color="primary">Asignar Permisos</button>
+                </li>
+              </ng-container>
+            </ul>
+          </div> -->

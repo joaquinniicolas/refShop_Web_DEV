@@ -1,0 +1,88 @@
+
+.active-link {
+  background-color: #ddd;
+}
+.sidenav-content {
+
+padding-top:0;
+}
+
+.mat-toolbar.justify-content-between {
+  display: flex;
+  justify-content: space-between;
+  margin-top:0;
+
+}
+
+.nav-title {
+
+}
+
+.sidenav {
+  width: 200px;
+}
+
+
+.mat-list-item-content {
+  padding-left: 30px;
+  font-size:14px;
+}
+
+.menuLogout {
+
+    
+
+}
+
+
+/* Clase para efecto hover circular */
+.circular-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
+  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+  /* Clase para el icono en el botón */
+  .circular-button .material-icons {
+    font-size: 24px;
+    color: #000000;
+    pointer-events: none;
+  }
+
+  /* Clase para el efecto de onda circular */
+  .circular-button .wave {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: scale(0);
+    pointer-events: none;
+    animation: waveEffect 1s linear;
+  }
+
+  /* Clase de hover para el efecto circular */
+  .circular-button:hover .wave {
+    transform: scale(2);
+    opacity: 0;
+  }
+
+/* Animación del efecto de onda circular */
+@keyframes waveEffect {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}

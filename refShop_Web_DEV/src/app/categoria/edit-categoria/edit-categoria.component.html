@@ -1,0 +1,42 @@
+<div class="mat-elevation-z8">
+  <div class="loading-spinner" *ngIf="isLoading">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <div class="title">
+    <h3 class="mat-h3">Editar categoria</h3>
+
+
+  </div>
+  <hr />
+
+  <button mat-icon-button (click)="navigateBack()">
+    <mat-icon>arrow_back</mat-icon>
+    <span style="margin-left: 5px;">Volver atrás</span>
+  </button>
+  <h3 class="mat-h3">
+    Categorial Actual:   <span>{{categoriaActual}}</span>
+  </h3>
+  <form class="mat-form" #categoriaForm="ngForm" (ngSubmit)="onSubmit()">
+
+    <mat-form-field class="mat-field">
+      <input type="text" id="nombre" name="nombre" matInput placeholder="Nombre (Por ejemplo: Desayunos)" [(ngModel)]="categoria.nombre" (change)="onFormChange()">
+    </mat-form-field>
+    <mat-form-field class="mat-field">
+      <input matInput placeholder="Descripción (Por ejemplo: Este menu contiene todos los desayunos)" [(ngModel)]="categoria.descripcion" name="descripcion" (change)="onFormChange()">
+    </mat-form-field>
+    <mat-checkbox class="mat-field" [(ngModel)]="categoria.mostrarEnSitio" name="mostrarEnSitio" matCheckbox (change)="onFormChange()">Se muestra en el sitio</mat-checkbox>
+
+    <mat-form-field class="mat-field">
+      <input type="text" id="usuarioNombre" name="usuarioNombre" matInput placeholder="El usuario quien creó la categoria" value="{{categoria.usuarioNombre}} {{categoria.usuarioApellido}}" readonly>
+    </mat-form-field>
+
+    <div class="mat-form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!formChanged">Guardar</button>
+    </div>
+
+  </form>
+
+
+</div>
+

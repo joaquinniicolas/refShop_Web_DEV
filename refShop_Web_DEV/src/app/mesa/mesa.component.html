@@ -1,0 +1,114 @@
+<div class="content-container">
+
+  <div class="loading-spinner" *ngIf="isLoading">
+  </div>
+
+  <h2 class="mat-h2">Mesas</h2>
+
+  <div class="help-text">
+    <p>La sección de mesa permite tener un control de la cantidad de mesas y sus estados</p>
+    <p>Esta sección permitirá añadir o crear mesas.</p>
+  </div>
+
+
+  <div class="mat-elevation-z8">
+
+    <h2>Mesas</h2>
+
+    <div class="add-button-container">
+
+      <button class="round-button" (click)="agregarMesa()">
+        <mat-icon class="plus-icon">add</mat-icon>
+      </button>
+      <span class="button-text">Agregar Mesa</span>
+
+      <button class="round-button-delete">
+        <mat-icon class="plus-icon">delete</mat-icon>
+      </button>
+      <span class="button-text">Borrar Mesa</span>
+
+    </div>
+
+
+
+
+    <hr />
+    <div class="mesa-container">
+    <div class="mesa-row">
+      <div class="mesa-card" *ngFor="let mesa of mesas">
+        <div class="mesa-content">
+          <div class="div-izquierdo" [ngClass]="getEstadoClass(mesa.estado)">
+            <div class="mesaNumero">{{ mesa.numero }}</div>
+          </div>
+          <div class="div-derecho">
+            <h2 class="titulo">Información</h2>
+            <hr />
+            <div class="item">
+              <mat-icon class="info-icon icon-edit-mesa">format_list_numbered</mat-icon>
+              <span class="info-span">Mesa: </span> {{ mesa.numero }}
+            </div>
+            <div class="item">
+              <mat-icon class="info-icon icon-edit-mesa">group</mat-icon>
+              <span class="info-span">Capacidad:</span> {{ mesa.capacidad }}
+            </div>
+            <div class="item">
+              <mat-icon class="info-icon" [ngClass]="getIconClass(mesa.estado)">check_circle</mat-icon>
+              <span class="info-span">Estado:</span> {{ mesa.estado }}
+            </div>
+            <div class="item">
+              <mat-icon class="info-icon icon-assign-mozo">person</mat-icon>
+              <span class="info-span">Mozo:</span>
+              <span class="info-user" (mouseenter)="getPopover(true)" (mouseleave)="getPopover(false)">
+                {{ mesa.mozoEncargado }}
+              </span>
+            </div>
+            <div class="item">
+              <mat-icon class="info-icon icon-ver-pedido">shopping_cart</mat-icon>
+              <span class="info-span">Pedido:</span> Sin pedido
+            </div>
+          </div>
+
+
+        </div>
+        <div class="mesa-footer">
+          <div class="icon-container">
+            <mat-icon class="icon-button icon-assign-mozo">assignment_ind</mat-icon>
+            <span class="icon-text">Asignar Mozo</span>
+          </div>
+          <div class="icon-container">
+            <mat-icon class="icon-button icon-ver-pedido">shopping_cart</mat-icon>
+            <span class="icon-text">Ver pedido</span>
+          </div>
+          <div class="icon-container">
+            <mat-icon class="icon-button icon-assign-pedido">assignment</mat-icon>
+            <span class="icon-text">Asignar pedido</span>
+          </div>
+          <div class="icon-container">
+            <mat-icon class="icon-button icon-edit-mesa">edit</mat-icon>
+            <span class="icon-text">Editar mesa</span>
+          </div>
+          <div class="icon-container">
+            <mat-icon class="icon-button icon-ver-informacion">info</mat-icon>
+            <span class="icon-text">Ver información</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="pagination">
+      <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">
+        Anterior
+      </button>
+      <span class="pagination-info">Página {{ currentPage }}</span>
+      <button class="pagination-button" (click)="nextPage()" [disabled]="mesas.length < pageSize">
+        Siguiente
+      </button>
+    </div>
+
+    </div>
+  </div>
+
+
+
+</div>

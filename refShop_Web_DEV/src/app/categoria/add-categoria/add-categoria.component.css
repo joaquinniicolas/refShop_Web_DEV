@@ -1,0 +1,41 @@
+.mat-card {
+ 
+}
+
+.bi-arrow-left {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.mat-elevation-z8 {
+  padding: 16px;
+  margin: 16px;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.24);
+  height:450px;
+}
+
+.mat-form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  min-width: 50%;
+  max-width:100%;
+}
+
+.mat-field {
+  width:50%;
+  margin-bottom: 16px;
+}
+
+.mat-checkbox {
+  margin-bottom: 8px;
+}
+
+.mat-form-actions {
+  display: flex;
+  justify-content: center;
+}

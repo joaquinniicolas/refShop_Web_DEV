@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.45-alpha">
+  <PropertyGroup>
+    <StartupCommand>npm start</StartupCommand>
+    <JavaScriptTestFramework>Jasmine</JavaScriptTestFramework>
+    <!-- Command to run on project build -->
+    <BuildCommand>
+    </BuildCommand>
+    <!-- Command to create an optimized build of the project that's ready for publishing -->
+    <ProductionBuildCommand>npm run build</ProductionBuildCommand>
+    <!-- Folder where production build objects will be placed -->
+    <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\refShop_Web_DEV</BuildOutputFolder>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\app\auth\" />
+    <Folder Include="src\app\categoria\DeletePopup\" />
+    <Folder Include="src\app\models\restaurant\" />
+    <Folder Include="src\app\services\validateForm\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptConfiguration Remove="src\app\models\konva-canvas\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\models\konva-canvas\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptConfiguration Remove="src\app\models\NewFolder\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\models\NewFolder\**" />
+  </ItemGroup>
+</Project>

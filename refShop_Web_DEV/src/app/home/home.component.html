@@ -1,0 +1,98 @@
+<!-- app-home.component.html -->
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+               [attr.aria-label]="(drawer.opened ? 'close' : 'open') + ' side menu'" [mode]="isHandset ? 'over' : 'side'"
+               [opened]="isHandset ? false : true"> <!--(click)="drawer.close()"-->
+    <mat-toolbar>Menú</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/home/inicio" routerLinkActive="active-link">
+        <mat-icon color="primary">home</mat-icon>
+        <span class="mat-list-item-content">Inicio</span>
+      </a>
+      <!--SE USARÁ SIEMPRE-->
+      <a mat-list-item routerLink="/home/pedidos" routerLinkActive="active-link">
+        <mat-icon color="primary">shopping_cart</mat-icon>
+        <span class="mat-list-item-content">Ver Pedidos</span>
+      </a>
+      <a mat-list-item routerLink="home/mesas" routerLinkActive="active-link">
+        <mat-icon color="primary">event_seat</mat-icon>
+        <span class="mat-list-item-content">Ver Mesas</span>
+      </a>
+      <a mat-list-item routerLink="home/promociones" routerLinkActive="active-link">
+        <mat-icon color="primary">local_offer</mat-icon>
+        <span class="mat-list-item-content">Ver Promociones</span>
+      </a>
+
+      <a mat-list-item routerLink="home/categorias" routerLinkActive="active-link">
+        <mat-icon color="primary">local_offer</mat-icon>
+        <span class="mat-list-item-content">Ver Categorias</span>
+      </a>
+
+      <a mat-list-item routerLink="home/platos" routerLinkActive="active-link">
+        <mat-icon color="primary">restaurant_menu</mat-icon>
+        <span class="mat-list-item-content">Ver Platos</span>
+      </a>
+
+
+
+      <a mat-list-item routerLink="home/menu" routerLinkActive="active-link">
+        <mat-icon color="accent">menu_book</mat-icon>
+        <span class="mat-list-item-content">Ver Carta</span>
+      </a>
+
+      <hr />
+
+      <a mat-list-item routerLink="home/inventario" routerLinkActive="active-link">
+        <mat-icon color="accent">inventory_2</mat-icon>
+        <span class="mat-list-item-content">Adm. Inventario</span>
+      </a>
+      <a mat-list-item routerLink="home/usuarios" routerLinkActive="active-link">
+        <mat-icon color="accent">supervised_user_circle</mat-icon>
+        <span class="mat-list-item-content">Adm. Usuarios</span>
+      </a>
+
+      <hr />
+
+      <a mat-list-item routerLink="home/observaciones" routerLinkActive="active-link">
+        <mat-icon color="accent">create</mat-icon>
+        <span class="mat-list-item-content">Libro de quejas</span>
+      </a>
+
+
+      <a mat-list-item routerLink="home/helpdesk" routerLinkActive="active-link">
+        <mat-icon color="accent">build</mat-icon>
+        <span class="mat-list-item-content">Soporte Técnico</span>
+      </a>
+      <a mat-list-item routerLink="home/contactos" routerLinkActive="active-link">
+        <mat-icon color="accent">phone</mat-icon>
+        <span class="mat-list-item-content">Contactos</span>
+      </a>
+      <a mat-list-item routerLink="home/configuracion-avanzada" routerLinkActive="active-link">
+        <mat-icon color="accent">settings</mat-icon>
+        <span class="mat-list-item-content">Configuración Avanzada</span>
+      </a>
+
+    </mat-nav-list>
+
+  </mat-sidenav>
+  <mat-sidenav-content class="sidenav-content">
+    <mat-toolbar class="mat-toolbar justify-content-between">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" class="circular-button">
+        <mat-icon aria-hidden="true">menu</mat-icon>
+      </button>
+      <span class="nav-title">Refishop - Administración</span>
+      <div class="menuLogout">
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="circular-button">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item routerLink="/ajustes" routerLinkActive="active-link">Ajustes</button>
+          <button mat-menu-item (click)="cerrarSesion()">Cerrar sesión</button>
+        </mat-menu>
+      </div>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
+

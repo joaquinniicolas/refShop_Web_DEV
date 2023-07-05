@@ -1,0 +1,196 @@
+/* Estilos para la sección de categorías */
+
+.content-container{
+
+}
+
+.mat-elevation-z8 {
+  padding: 16px;
+  margin: 16px;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.24);
+  
+}
+
+.nocategory-content {
+  
+  height: 100%; 
+}
+
+.nocategory-info {
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+
+.help-text {
+  background-color: #f2f2f2;
+  border-radius: 4px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.help-text p{
+
+    color:orange;
+}
+
+  .help-text p {
+    font-size: 14px;
+    margin: 8px 0;
+  }
+
+
+.mat-h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.flex {
+  display: inline-flex;
+  flex-wrap: wrap;
+
+}
+
+.grid-section {
+    display:flex;
+}
+
+
+.grid-categorias{
+    margin-left:10px;
+}
+
+
+.mat-table {
+  width: 100%;
+  margin-bottom: 16px;
+  border-collapse: collapse;
+}
+
+.mat-header-row {
+  background-color: #eee;
+}
+
+.mat-header-cell,
+.mat-cell {
+  padding: 8px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+}
+
+  .mat-header-cell:first-child,
+  .mat-cell:first-child {
+    width: 20%;
+  }
+
+  .mat-header-cell:nth-child(2),
+  .mat-cell:nth-child(2) {
+    width: 20%;
+  }
+
+  .mat-header-cell:nth-child(3),
+  .mat-cell:nth-child(3) {
+    width: 20%;
+  }
+
+  .mat-header-cell:nth-child(4),
+  .mat-cell:nth-child(4) {
+    width: 20%;
+  }
+
+.mat-divider {
+  margin: 16px 0;
+  border-top: 1px solid #ccc;
+}
+
+/* Estilos para el formulario de creación de categorías */
+.mat-card {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.24);
+}
+
+.mat-h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.hover-row:hover {
+  background-color: #e6e6e6;
+  cursor: pointer;
+}
+
+.mat-row.selected {
+  background-color: #808080;
+}
+
+/*DUAL LIST BOX*/
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left-card, .right-card {
+  width: 50%;
+  margin: 0 16px;
+
+}
+
+.arrows {
+  display: flex;
+  flex-direction: column;
+  margin: 0 16px;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons {
+  margin-top: 16px;
+}
+
+.dual-listbox{
+    height:250px;
+}
+
+
+.disabled-button {
+  background-color: #ccc;
+  color: #999;
+}
+
+.editada {
+  background-color: yellow;
+}
+
+.scrollable-list {
+  height: 180px; /* Establece la altura deseada */
+  overflow-y: auto; /* Activa el desbordamiento vertical */
+}
+
+.list-item {
+  font-size: 12px;
+  color:orange;
+}
+
+.list-item:hover {
+  background-color: #e0e0e0; /* Cambia el color de fondo en el efecto hover */
+  
+}
+
+
+
+
+
+

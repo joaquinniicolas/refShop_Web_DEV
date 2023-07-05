@@ -1,0 +1,75 @@
+<div class="mat-elevation-z8">
+
+  <div class="loading-spinner" *ngIf="isLoading">
+  </div>
+
+  <button mat-icon-button (click)="navigateBack()">
+    <mat-icon>arrow_back</mat-icon>
+    <span style="margin-left: 5px;">Volver atrás</span>
+  </button>
+  <h3 class="mat-h3">Crear nueva mesa</h3>
+  <hr />
+
+
+  <div class="mat-form-container">
+    <form class="mat-form" (ngSubmit)="crearMesa()">
+
+      <mat-form-field class="mat-field mat-icon-align-start">
+        <mat-icon matPrefix>account_circle</mat-icon>
+        <input matInput placeholder="Número" [(ngModel)]="nuevaMesa.numero" name="numero" required>
+      </mat-form-field>
+
+      <mat-form-field class="mat-field mat-icon-align-start">
+        <mat-icon matPrefix>people</mat-icon>
+        <input matInput placeholder="Capacidad" [(ngModel)]="nuevaMesa.capacidad" name="capacidad" required>
+      </mat-form-field>
+
+      <mat-form-field class="mat-field mat-icon-align-start">
+        <mat-icon matPrefix>info</mat-icon>
+        <mat-label>Estado</mat-label>
+        <mat-select [(ngModel)]="nuevaMesa.estado" name="estado" required>
+          <mat-option *ngFor="let estado of estados" [value]="estado">{{ estado }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="mat-field mat-icon-align-start">
+        <mat-icon matPrefix>calendar_today</mat-icon>
+        <input matInput placeholder="Creado el día" [(ngModel)]="nuevaMesa.creadoEl" name="creadoEl" readonly [value]="fechaHoy">
+      </mat-form-field>
+
+      <mat-form-field class="mat-field mat-icon-align-start">
+        <mat-icon matPrefix>person</mat-icon>
+        <input matInput placeholder="Creado por" name="creadoPor" readonly [value]="nuevaMesa.creador">
+      </mat-form-field>
+
+      <div *ngIf="mozos.length === 0">
+        <div>
+          <mat-icon>info</mat-icon>
+          <small style="color:red;">No se encontró ningun usuario con el rol de Mozo</small>
+        </div>
+        <div>
+          <button mat-button (click)="crearMozo()">Crear Mozo</button>
+        </div>
+      </div>
+      <div>
+        <mat-form-field class="mat-field" *ngIf="mozos.length > 0">
+          <mat-icon matPrefix>assignment_ind</mat-icon>
+          <mat-label>Asignar Mozo</mat-label>
+          <mat-select name="mozo" required (selectionChange)="onMozoSelected($event.value)">
+            <mat-option *ngFor="let mozo of mozos" [value]="mozo.id">
+              {{ mozo.firstName }} {{ mozo.lastName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="mat-form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!formChanged">Guardar</button>
+      </div>
+
+    </form>
+  </div>
+
+
+
+
+</div>

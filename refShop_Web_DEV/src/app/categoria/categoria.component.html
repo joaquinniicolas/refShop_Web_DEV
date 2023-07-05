@@ -1,0 +1,128 @@
+
+<div class="content-container">
+  <div class="loading-spinner" *ngIf="isLoading">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+  <h2 class="mat-h2">Categorías</h2>
+  <div class="help-text">
+    <p>Las categorías agrupan los diferentes tipos de comida. Por ejemplo la categoria Desayunos, contendrá todos los menus de Desayuno </p>
+    <p>La sección de Categorías permite ordenar, administrar y editar las categorías.</p>
+  </div>
+
+  <div class="mat-elevation-z8">
+
+    <div *ngIf="categorias.length === 0" class="nocategory-content">
+      <div class="nocategory-info">
+        <div>
+          <i class="bi bi-exclamation-circle-fill text-warning display-1 mb-2"></i>
+          <p>Aún no hay categorías creadas</p>
+
+        </div>
+        <div>
+          <button class="mat-raised-button" color="primary" (click)="agregarCategoria()">Añadir una nueva categoría</button>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div *ngIf="categorias.length > 0">
+
+      <button class="mat-raised-button" color="primary" (click)="agregarCategoria()">Añadir una nueva categoría</button>
+      <button class="mat-raised-button" color="primary" (click)="editarCategoria()" [disabled]="disableEdit" [ngStyle]="{'opacity': disableEdit ? '0.5' : '1', 'cursor': disableEdit ? 'not-allowed' : 'pointer', 'background-color': disableEdit ? '#ccc' : ''}">
+        Editar categorias
+      </button>
+      <button class="mat-raised-button" color="secondary" (click)="eliminarCategoria()" [disabled]="disableDelete" [ngStyle]="{'opacity': disableDelete ? '0.5' : '1', 'cursor': disableDelete ? 'not-allowed' : 'pointer', 'background-color': disableDelete ? '#ccc' : ''}">
+        Eliminar categorias
+      </button>
+
+      <div class="mat-divider"></div>
+      <div class="grid-section flex">
+
+        <!-- Grilla con las categorías creadas -->
+        <div class="mat-card grid-categorias">
+          <p>Categorias en el sitio</p>
+          <table class="mat-table">
+            <thead class="mat-header-row">
+              <tr class="mat-row">
+                <th class="mat-header-cell">Nombre</th>
+                <th class="mat-header-cell">Descripción</th>
+                <th class="mat-header-cell">Creado el dia</th>
+                <th class="mat-header-cell">Creado por</th>
+                <th class="mat-header-cell">Se muestra en el sitio</th>
+              </tr>
+            </thead>
+            <tbody class="mat-body">
+              <tr class="mat-row hover-row" *ngFor="let categoria of categorias" [class.selected]="filaSeleccionada === categoria" (click)="seleccionarFila(categoria)">
+                <td class="mat-cell">{{ categoria.nombre }}</td>
+                <td class="mat-cell">{{ categoria.descripcion }}</td>
+                <td class="mat-cell">{{ categoria.creadoEl }}</td>
+                <td class="mat-cell">{{ categoria.usuarioNombre}} {{categoria.usuarioApellido}}</td>
+
+                <td class="mat-cell">{{ categoria.mostrarEnSitio ? 'Si' : 'No' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+
+        <div class="mat-card grid-categorias ">
+          <p>Añadir o quitar platos a una categoria</p>
+
+          <div class="container">
+            <div class="left-card">
+              <mat-card class="dual-listbox">
+                <mat-card-header>
+                  <mat-card-title>Categorias</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="scrollable-list">
+                    <mat-selection-list #leftList [(ngModel)]="leftSelectedItems">
+                      <mat-list-option *ngFor="let item of leftItems" [value]="item" class="list-item">
+                        {{ item }}
+                      </mat-list-option>
+                    </mat-selection-list>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div class="arrows">
+              <div class="buttons">
+                <button aria-label="Add" (click)="moveRight()" [disabled]="leftSelectedItems.length === 0">
+                  <mat-icon>arrow_forward</mat-icon>
+                </button>
+                <button aria-label="Remove" (click)="moveLeft()" [disabled]="rightSelectedItems.length === 0">
+                  <mat-icon>arrow_back</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div class="right-card">
+              <mat-card class="dual-listbox">
+                <mat-card-header>
+                  <mat-card-title>Platos</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="scrollable-list">
+
+                    <mat-selection-list #rightList [(ngModel)]="rightSelectedItems">
+                      <mat-list-option *ngFor="let item of rightItems" [value]="item" class="list-item">
+                        {{ item }}
+                      </mat-list-option>
+                    </mat-selection-list>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+    </div>
+  </div>
+
+</div>

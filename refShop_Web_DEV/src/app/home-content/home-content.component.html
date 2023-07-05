@@ -1,0 +1,32 @@
+
+
+  <div class="container">
+    <h2 class="title">Mesas</h2>
+    <div class="card-container">
+      <div class="row">
+        <div class="col-md-4" *ngFor="let mesa of mesas">
+          <div class="card">
+            <div class="row no-gutters">
+              <div class="col-md-5">
+                <img src="{{ mesa.imagen }}" alt="Mesa {{ mesa.numero }}" class="card-img">
+              </div>
+              <div class="col-md-7">
+                <div class="card-body">
+                  <h5 class="card-title">Mesa {{ mesa.numero }}</h5>
+                  <p class="card-text"><strong>Capacidad:</strong> {{ mesa.capacidad }}</p>
+                  <p class="card-text"><strong>Estado:</strong> {{ mesa.estado }}</p>
+                  <p class="card-text"><strong>Mozo:</strong> {{ mesa.mozo }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+

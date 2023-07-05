@@ -1,0 +1,26 @@
+
+<div class="mat-elevation-z8">
+  <h3 class="mat-h3">Nueva categoría</h3>
+  <hr />
+
+  <button mat-icon-button (click)="navigateBack()">
+    <mat-icon>arrow_back</mat-icon>
+    <span style="margin-left: 5px;">Volver atrás</span>
+  </button>
+  <form class="mat-form" (ngSubmit)="crearCategoria()">
+
+    <mat-form-field class="mat-field">
+      <input matInput placeholder="Nombre (Por ejemplo: Desayunos)" [(ngModel)]="nuevaCategoria.nombre" name="nombre">
+    </mat-form-field>
+    <mat-form-field class="mat-field">
+      <input matInput placeholder="Descripción (Por ejemplo: Este menu contiene todos los desayunos)" [(ngModel)]="nuevaCategoria.descripcion" name="descripcion">
+    </mat-form-field>
+    <mat-checkbox class="mat-field" [(ngModel)]="nuevaCategoria.mostrar_en_sitio" name="mostrarEnSitio" matCheckbox>La categoria se muestra actualmente en el sitio</mat-checkbox>
+    <div class="mat-form-actions">
+    </div>
+    <div class="button-submit">
+      <button mat-raised-button color="primary" type="submit">Guardar</button>
+    </div>
+  </form>
+  
+</div>

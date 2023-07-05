@@ -1,0 +1,56 @@
+.mat-card {
+}
+
+.bi-arrow-left {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 2rem;
+  cursor: pointer;
+  margin-bottom:20px;
+}
+
+.mat-form-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.mat-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 50%;
+}
+
+mat-icon{
+    color:lightgreen;
+}
+
+.mat-field {
+  display: flex;
+  align-items: center;
+}
+
+  .mat-field mat-icon {
+    margin-right: 8px;
+  }
+
+.mat-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+
+.button-submit {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.mat-h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-align: center;
+}

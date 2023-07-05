@@ -1,0 +1,2 @@
+E:\CSharp\repos\refShop_Web_DEV\obj\Debug\refShop_Web_DEV.esproj.SuggestedBindingRedirects.cache
+E:\CSharp\repos\refShop_Web_DEV\obj\Debug\refShop_Web_DEV.esproj.CoreCompileInputs.cache
